@@ -5,6 +5,9 @@ import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { ConfigEnum } from './enum/config.enum';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { Profile } from './user/profile.entity';
+import { Logs } from './logs/logs.entity';
+import { Roles } from './roles/roles.entity';
 
 // 当前环境文件路径: 例如当前处于开发环境时会得到 .env.development
 const envFilePath = `.env.${process.env.NODE_ENV} || 'development`;
@@ -31,7 +34,7 @@ const envFilePath = `.env.${process.env.NODE_ENV} || 'development`;
           username: configService.get(ConfigEnum.DB_USERNAME),
           password: configService.get(ConfigEnum.DB_PASSWORD),
           database: configService.get(ConfigEnum.DB_DATABASE),
-          entities: [User],
+          entities: [User, Profile, Logs, Roles],
           synchronize: configService.get(ConfigEnum.DB_SYNCHRONIZE),
           logging: ['error'],
         }) as TypeOrmModuleAsyncOptions,
